@@ -1,4 +1,4 @@
-"""Data models for Chauncey LLM abstraction."""
+"""Data models for Shrewd LLM abstraction."""
 
 from datetime import datetime
 from enum import Enum

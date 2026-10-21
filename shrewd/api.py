@@ -1,20 +1,20 @@
-"""FastAPI application for Chauncey LLM abstraction service."""
+"""FastAPI application for Shrewd LLM abstraction service."""
 
 import os
 from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Query
 
-from chauncey.models import Provider, ChatMessage, ChatResponse
+from shrewd.models import Provider, ChatMessage, ChatResponse
 
 
 app = FastAPI(
-    title="Chauncey",
+    title="Shrewd",
     description="LLM provider abstraction for the Evershade ecosystem",
     version="1.0.0",
 )
 
-API_KEY = os.getenv("API_KEY", "Chauncey-dev-key-change-me")
+API_KEY = os.getenv("API_KEY", "Shrewd-dev-key-change-me")
 
 # Available models registry
 _models = {
@@ -35,7 +35,7 @@ def verify_key(x_key: Optional[str] = Query(None)) -> None:
 
 @app.get("/health")
 async def health() -> dict[str, str]:
-    return {"status": "ok", "service": "Chauncey"}
+    return {"status": "ok", "service": "Shrewd"}
 
 
 @app.post("/api/chat")

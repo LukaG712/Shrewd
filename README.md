@@ -1,11 +1,11 @@
-# Chauncey
+# Shrewd
 
 > *"Oh boy..."*
 > ~ **Luigi**, probably
 
-**Chauncey** is the LLM provider abstraction service for the Evershade ecosystem. It provides a unified interface for OpenAI, Anthropic, Google, and Ollama, letting you swap models and manage costs.
+**Shrewd** is the LLM provider abstraction service for the Evershade ecosystem. It provides a unified interface for OpenAI, Anthropic, Google, and Ollama, letting you swap models and manage costs.
 
-**Luigi's Mansion origin:** *Chauncey* ~ a ghostly figure from Luigi's Mansion: Dark Moon.
+**Luigi's Mansion origin:** *Shrewd* ~ one of the Three Sisters (Possessors) from Luigi's Mansion: Dark Moon, known for being cunning and intelligent, perfect for an LLM service.
 
 ## Features
 
@@ -16,9 +16,9 @@
 ## Quick Start
 
 ```bash
-docker compose up -d Chauncey
+docker compose up -d Shrewd
 pip install -e ".[dev]"
-python -m uvicorn chauncey.api:app --host 0.0.0.0 --port 8089
+python -m uvicorn shrewd.api:app --host 0.0.0.0 --port 8089
 ```
 
 ## API
@@ -30,7 +30,7 @@ python -m uvicorn chauncey.api:app --host 0.0.0.0 --port 8089
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `API_KEY` | `Chauncey-dev-key-change-me` | API authentication key |
+| `API_KEY` | `Shrewd-dev-key-change-me` | API authentication key |
 | `PORT` | `8089` | Server port |
 | `OPENAI_API_KEY` | (optional) | OpenAI API key |
 | `OLLAMA_URL` | `http://host.docker.internal:11434` | Ollama endpoint |

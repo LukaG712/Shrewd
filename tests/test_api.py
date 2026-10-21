@@ -1,10 +1,10 @@
-"""Tests for Chauncey LLM abstraction service."""
+"""Tests for Shrewd LLM abstraction service."""
 
 import os
 import pytest
 from fastapi.testclient import TestClient
 
-from chauncey.api import app
+from shrewd.api import app
 
 
 @pytest.fixture(autouse=True)
@@ -22,7 +22,7 @@ class TestHealth:
         assert response.status_code == 200
         data = response.json()
         assert data["status"] == "ok"
-        assert data["service"] == "Chauncey"
+        assert data["service"] == "Shrewd"
 
 
 class TestChat:
