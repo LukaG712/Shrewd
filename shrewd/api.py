@@ -4,20 +4,20 @@ Routes chat requests to real LLM providers (OpenAI, Anthropic, Google, Ollama)
 with cost tracking and privacy classification.
 """
 
-import os
 import hmac
 import logging
-from typing import Any, Optional
+import os
+from typing import Any
 
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, Header, HTTPException
 
-from shrewd.models import Provider, ChatMessage, ChatResponse
+from shrewd.models import ChatMessage, ChatResponse, Provider
 from shrewd.providers import get_provider
 from shrewd.routing import (
     MODEL_REGISTRY,
-    route_chat,
     get_cost_summary,
     resolve_provider,
+    route_chat,
 )
 
 logger = logging.getLogger("shrewd")
@@ -31,7 +31,7 @@ app = FastAPI(
 API_KEY = os.getenv("API_KEY", "Shrewd-dev-key-change-me")
 
 
-def verify_bearer(authorization: Optional[str] = Header(None)) -> None:
+def verify_bearer(authorization: str | None = Header(None)) -> None:
     """Verify Bearer token in Authorization header."""
     if authorization and authorization.startswith("Bearer "):
         token = authorization[7:]
@@ -47,7 +47,7 @@ async def health() -> dict[str, str]:
 
 
 @app.post("/api/chat")
-async def chat(data: dict[str, Any], authorization: Optional[str] = Header(None)) -> dict[str, Any]:
+async def chat(data: dict[str, Any], authorization: str | None = Header(None)) -> dict[str, Any]:
     """Route a chat request to the appropriate LLM provider.
 
     Supports real providers: OpenAI, Anthropic, Google Gemini, and Ollama.
@@ -90,7 +90,7 @@ async def chat(data: dict[str, Any], authorization: Optional[str] = Header(None)
 
 
 @app.get("/api/models")
-async def list_models(provider: Optional[str] = None, authorization: Optional[str] = Header(None)) -> list[dict[str, Any]]:
+async def list_models(provider: str | None = None, authorization: str | None = Header(None)) -> list[dict[str, Any]]:
     """List available models with provider and privacy info."""
     verify_bearer(authorization)
     results = []
@@ -110,7 +110,7 @@ async def list_models(provider: Optional[str] = None, authorization: Optional[st
 
 
 @app.get("/api/providers")
-async def list_providers(authorization: Optional[str] = Header(None)) -> list[dict[str, Any]]:
+async def list_providers(authorization: str | None = Header(None)) -> list[dict[str, Any]]:
     """List available providers with availability status."""
     verify_bearer(authorization)
     provider_map = {
@@ -129,7 +129,7 @@ async def list_providers(authorization: Optional[str] = Header(None)) -> list[di
 
 
 @app.get("/api/cost/summary")
-async def cost_summary(authorization: Optional[str] = Header(None)) -> dict[str, Any]:
+async def cost_summary(authorization: str | None = Header(None)) -> dict[str, Any]:
     """Get a summary of tracked LLM usage costs."""
     verify_bearer(authorization)
     return get_cost_summary()

@@ -4,12 +4,9 @@ Each provider class handles authentication, request formatting, and response
 parsing for a specific LLM API. Providers use httpx for async HTTP calls.
 """
 
-import os
 import logging
+import os
 from abc import ABC, abstractmethod
-from datetime import datetime
-from typing import Any, Optional
-from uuid import uuid4
 
 import httpx
 
@@ -249,7 +246,6 @@ class OllamaProvider(BaseProvider):
             data = response.json()
 
         message = data.get("message", {})
-        total_duration = data.get("total_duration", 0)
         return ChatResponse(
             content=message.get("content", ""),
             provider=Provider.OLLAMA,

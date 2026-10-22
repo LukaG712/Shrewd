@@ -1,12 +1,12 @@
 """Data models for Shrewd LLM abstraction."""
 
 from datetime import datetime
-from enum import Enum
-from typing import Any, Optional
+from enum import StrEnum
+from typing import Any
 from uuid import UUID, uuid4
 
 
-class Provider(str, Enum):
+class Provider(StrEnum):
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
     GOOGLE = "google"
@@ -26,8 +26,8 @@ class ChatRequest:
     def __init__(
         self,
         messages: list[ChatMessage],
-        provider: Optional[Provider] = None,
-        model: Optional[str] = None,
+        provider: Provider | None = None,
+        model: str | None = None,
         temperature: float = 0.7,
         max_tokens: int = 1000,
     ):
@@ -47,8 +47,8 @@ class ChatResponse:
         prompt_tokens: int = 0,
         completion_tokens: int = 0,
         cost_usd: float = 0.0,
-        id: Optional[UUID] = None,
-        created_at: Optional[datetime] = None,
+        id: UUID | None = None,
+        created_at: datetime | None = None,
     ):
         self.id = id or uuid4()
         self.content = content

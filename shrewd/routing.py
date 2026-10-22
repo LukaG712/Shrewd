@@ -5,13 +5,13 @@ tracks token usage and estimated costs, and classifies models as public
 or private (local-only) for data privacy compliance.
 """
 
-import os
 import logging
+import os
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 
 from shrewd.models import ChatMessage, ChatResponse, Provider
-from shrewd.providers import get_provider, BaseProvider
+from shrewd.providers import BaseProvider, get_provider
 
 logger = logging.getLogger("shrewd")
 
@@ -144,8 +144,8 @@ def get_cost_summary() -> dict[str, Any]:
 
 async def route_chat(
     messages: list[ChatMessage],
-    model: Optional[str] = None,
-    provider: Optional[Provider] = None,
+    model: str | None = None,
+    provider: Provider | None = None,
     temperature: float = 0.7,
     max_tokens: int = 1000,
     require_private: bool = False,

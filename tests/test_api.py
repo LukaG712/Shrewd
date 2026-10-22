@@ -1,14 +1,13 @@
 """Tests for Shrewd LLM abstraction service."""
 
 import os
-import pytest
+
 from fastapi.testclient import TestClient
 
 # Set API_KEY BEFORE importing the app module
 os.environ["API_KEY"] = "test-key"
 
 from shrewd.api import app
-
 
 client = TestClient(app)
 HEADERS = {"Authorization": "Bearer test-key"}
