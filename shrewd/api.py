@@ -46,6 +46,42 @@ async def health() -> dict[str, str]:
     return {"status": "ok", "service": "Shrewd"}
 
 
+@app.get("/api/capabilities")
+async def capabilities() -> dict:
+    """Report the capabilities supported by this Shrewd instance."""
+    return {
+        "service": "Shrewd",
+        "version": "1.1.0",
+        "features": {
+            "chat_completions": {
+                "supported": True,
+                "description": "OpenAI-compatible chat completions API",
+            },
+            "embeddings": {
+                "supported": True,
+                "description": "Text embedding generation",
+            },
+            "model_routing": {
+                "supported": True,
+                "description": "Automatic model selection and routing",
+            },
+            "multi_provider": {
+                "supported": True,
+                "description": "Support for multiple LLM providers",
+            },
+            "streaming": {
+                "supported": True,
+                "description": "SSE streaming for completions",
+            },
+            "local_models": {
+                "supported": True,
+                "description": "Local model support via Ollama",
+            },
+        },
+        "api_versions": ["v1"],
+    }
+
+
 @app.post("/api/chat")
 async def chat(data: dict[str, Any], authorization: str | None = Header(None)) -> dict[str, Any]:
     """Route a chat request to the appropriate LLM provider.
