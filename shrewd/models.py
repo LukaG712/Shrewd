@@ -46,6 +46,7 @@ class ChatResponse:
         model: str,
         prompt_tokens: int = 0,
         completion_tokens: int = 0,
+        cost_usd: float = 0.0,
         id: Optional[UUID] = None,
         created_at: Optional[datetime] = None,
     ):
@@ -55,6 +56,7 @@ class ChatResponse:
         self.model = model
         self.prompt_tokens = prompt_tokens
         self.completion_tokens = completion_tokens
+        self.cost_usd = cost_usd
         self.created_at = created_at or datetime.utcnow()
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,6 +67,7 @@ class ChatResponse:
             "model": self.model,
             "prompt_tokens": self.prompt_tokens,
             "completion_tokens": self.completion_tokens,
+            "cost_usd": self.cost_usd,
             "created_at": self.created_at.isoformat(),
         }
 
